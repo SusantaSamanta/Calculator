@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,22 +134,46 @@
 
     buttonsArray.forEach( (btn) => {
       btn.addEventListener( 'click', (event) => {
-
         if(event.target.innerHTML == "DE"){
           string = string.substring(0, string.length-1);
           display.value = string;
         }
-
+        else if(event.target.innerHTML == "="){
+          string = eval(string);
+          display.value = string;
+        }
+        else if(event.target.innerHTML == "×"){
+          string = string + '*';
+          display.value = symbol_changer(string);
+        }
+        else if(event.target.innerHTML == "÷"){
+          string = string + '/';
+          display.value = symbol_changer(string);
+        }
         else{
           string += event.target.innerHTML;
-          display.value = string;
+          display.value = symbol_changer(string); 
         }
         // console.log(event.target.innerHTML);
       });
     });
 
 
-
+const symbol_changer = (string) => { // Symbols change to : × ÷
+  let a = string, b=''; 
+  for(i=0;i<a.length;i++){
+    if(a[i] != '*' && a[i] != '/'){
+       b += a[i];
+    }
+    else if(a[i] == '*'){
+      b += '×';
+    }
+    else if(a[i] == '/'){
+      b += '÷';
+    }
+  }
+  return b;
+}
 
 
 
