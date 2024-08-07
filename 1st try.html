@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator</title>
   <style>
-    * {
+    *{
       border: 0px;
       margin: 0px;
       box-sizing: border-box;
@@ -136,20 +136,44 @@
       btn.addEventListener( 'click', (event) => {
         if(event.target.innerHTML == "DE"){
           string = string.substring(0, string.length-1);
-          display.value = string;
+          display.value = symbol_changer(string);
         }
         else if(event.target.innerHTML == "="){
           string = eval(string);
           display.value = string;
         }
+        else if(event.target.innerHTML == "+"){
+          string = string + '+'
+          string = multiple_oper_checker(string);
+          display.value = symbol_changer(string);
+        }
+        else if(event.target.innerHTML == "-"){
+          string = string + '-'
+          string = multiple_oper_checker(string);
+          display.value = symbol_changer(string);
+        }
         else if(event.target.innerHTML == "×"){
           string = string + '*';
+          string = multiple_oper_checker(string);
           display.value = symbol_changer(string);
         }
         else if(event.target.innerHTML == "÷"){
           string = string + '/';
+          string = multiple_oper_checker(string);
           display.value = symbol_changer(string);
         }
+        else if(event.target.innerHTML == "%"){
+          string = string + '%';
+          string = multiple_oper_checker(string);
+          display.value = symbol_changer(string);
+        }
+        
+        else if(event.target.innerHTML == "."){
+          string = string + '.';
+          string = multiple_oper_checker(string);
+          display.value = symbol_changer(string);
+        }
+        
         else{
           string += event.target.innerHTML;
           display.value = symbol_changer(string); 
@@ -162,14 +186,30 @@
 const symbol_changer = (string) => { // Symbols change to : × ÷
   let a = string, b=''; 
   for(i=0;i<a.length;i++){
-    if(a[i] != '*' && a[i] != '/'){
-       b += a[i];
-    }
-    else if(a[i] == '*'){
+    if(a[i] == '*')
       b += '×';
-    }
-    else if(a[i] == '/'){
+    else if(a[i] == '/')
       b += '÷';
+    else
+      b += a[i];
+  }
+  return b;
+}
+
+const oper_checker = (oper) => { // check if operator or not
+  let i = oper;
+  if(i=='+'||i=='-'||i=='%'||i=='*'||i=='/'||i=='.')
+    return true;
+  else 
+    return false;
+}
+const multiple_oper_checker = (string) => { // if multiple operator present before and after : +++ , -+, ×÷× 
+  let a = string, i;
+  let b = string;
+  for(i=0;i<a.length;i++){
+    if(oper_checker(a[i]) && oper_checker(a[i+1])){
+        b = b.substring(0, b.length-1);
+        return b;
     }
   }
   return b;
