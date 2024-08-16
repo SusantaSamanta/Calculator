@@ -1,68 +1,89 @@
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator</title>
   <style>
-    *{
+    * {
       border: 0px;
       margin: 0px;
       box-sizing: border-box;
       font-size: 7vw;
       font-weight: 400;
-      color: white;
     }
 
     body {
-      padding: 0%;
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    
+    #result_container {
+      height: 35vh;
+      width: 90vw;
+      margin: 0px;
+      margin-inline: auto;
+      padding: 0px;
+      border: 02px solid #8787876c;
+      border-radius: 3vw;
+      text-align: right;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-end;
     }
 
-    .input_size2{
+    .input_size2 {
       height: 4vh;
       width: 100%;
       margin-top: 0vw;
       margin-bottom: 1vw;
-    /*  border: .5px solid #71717184;*/
+      /*  border: .5px solid #71717184;*/
       background: #8d8d8d00;
       color: #939393;
       font-size: 6vw;
       text-align: right;
     }
-    .input_size{
+    
+    #container {
+      height: 65vh;
+      width: 90vw;
+      margin: 0px;
+      margin-inline: auto;
+      padding: 0px;
+      border: 01px solid #f7b5b56c;
+      border-radius: 3vw;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-end;
+    }
+
+    .input_size {
       height: 6vh;
       width: 100%;
       margin-top: 0vw;
       margin-bottom: 2vw;
-     /* border: .5px solid #71717184;*/
+      /* border: .5px solid #71717184;*/
       color: black;
       background: #7d7d7d00;
       text-align: right;
     }
-    #input{
+
+    #input {
       height: 8vh;
       padding-bottom: 4vw;
       margin-bottom: 3vw;
       border-bottom: .5px solid #71717184;
       font-size: 12vw;
     }
-    #input2{
+
+    #input2 {
       color: #4b4b4b;
       font-size: 7vw;
     }
 
-    #container {
-      height: 100vh;
-      width: 90vw;
-      margin-top: 0vh;
-      margin-inline: auto;
-      padding-block: 0vw;
-      padding-inline: 0vw;
-      border: 0px solid #8787876c;
-      border-radius: 3vw;
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-end;
-    }
 
     #row {
       height: 15vw;
@@ -84,7 +105,6 @@
 
     .gray_button {
       background: white;
-      color: black;
     }
 
     .orange_button {
@@ -93,6 +113,7 @@
     }
 
     .equal_button {
+      color: white;
       background: #ff772b;
     }
 
@@ -108,45 +129,14 @@
 </head>
 
 <body>
+  
+  
+  <div id="result_container">5hhhhhhhhgdursigdk</div>
+  
   <div id="container">
-    
-    
-    <input type="text" 
-      id="input8" 
-      class="input_size2" value="3+3"
-      disabled />
-    <input type="text" 
-      id="input7" 
-      class="input_size2" value="= 6"
-      disabled />
-      
-    <input type="text" 
-      id="input6" 
-      class="input_size2" value="3+3"
-      disabled />
-    <input type="text" 
-      id="input5" 
-      class="input_size2" value="= 6"
-      disabled />
-      
-    <input type="text" 
-      id="input4" 
-      class="input_size2" value="3+3"
-      disabled />
-    <input type="text" 
-      id="input3" 
-      class="input_size2" value="= 6"
-      disabled />
-      
-    <input type="text" 
-      id="input2" 
-      class="input_size"
-      disabled />
-    <input type="text" 
-      id="input" 
-      class="input_size"  
-      placeholder="0" 
-      disabled />
+
+    <input type="text" id="input2" class="input_size" disabled />
+    <input type="text" id="input" class="input_size" placeholder="0" disabled />
 
     <div id="row">
       <button id="button" class="orange_button">AC</button>
@@ -155,7 +145,7 @@
       <button id="button" class="orange_button">÷</button>
     </div>
     <div id="row">
-      <button id="button" class="gray_button">7 </button>
+      <button id="button" class="gray_button">7</button>
       <button id="button" class="gray_button">8</button>
       <button id="button" class="gray_button">9</button>
       <button id="button" class="orange_button">×</button>
@@ -179,188 +169,11 @@
       <button id="button" class="equal_button">=</button>
     </div>
   </div>
-  
-  
-  <script> 
-  
-    let string = "", equal = 0, after_equal_action = 0, action = 0;
-    let display = document.getElementById('input');
-    let display2 = document.getElementById('input2');
-    let display3 = document.getElementById('input3');
-    let display4 = document.getElementById('input4');
-    let buttons = document.querySelectorAll('button');
-
-    let buttonsArray = Array.from(buttons);
-
-    buttonsArray.forEach( (btn) => {
-      btn.addEventListener( 'click', (event) => {
-        if(event.target.innerHTML == "DE"){
-          string = string.substring(0, string.length-1);
-          display2.value = display.value = symbol_changer(string);
-        }
-        else if(event.target.innerHTML == "="){
-          string = eval(string);
-          display.value = '= ' + string;
-          equal = 1;
-          after_equal_action = 1;
-        }
-        else if(event.target.innerHTML == "+"){
-          string = string + '+'
-          string = add_0_before_1st_oper(string);
-          string = multiple_oper_checker(string);
-          display2.value = display.value = symbol_changer(string);
-          equal = 0;
-        }
-        else if(event.target.innerHTML == "-"){
-          string = string + '-'
-          string = add_0_before_1st_oper(string);
-          string = multiple_oper_checker(string);
-          display2.value = display.value = symbol_changer(string);
-          equal = 0;
-        }
-        else if(event.target.innerHTML == "×"){
-          string = string + '*';
-          string = add_0_before_1st_oper(string);
-          string = multiple_oper_checker(string);
-          display2.value = display.value = symbol_changer(string);
-          equal = 0;
-        }
-        else if(event.target.innerHTML == "÷"){
-          string = string + '/';
-          string = add_0_before_1st_oper(string);
-          string = multiple_oper_checker(string);
-          display2.value = display.value = symbol_changer(string);
-          equal = 0;
-        }
-        else if(event.target.innerHTML == "%"){
-          string = string + '%';
-          string = add_0_before_1st_oper(string);
-          string = multiple_oper_checker(string);
-          display2.value = display.value = symbol_changer(string);
-          equal = 0;
-        }
-        
-        else if(event.target.innerHTML == "."){
-          string = string + '.';
-          string = add_0_before_1st_oper(string);
-          string = multiple_oper_checker(string);
-          display2.value = display.value = symbol_changer(string);
-          equal = 0;
-        }
-        
-        else if(num_checker(event.target.innerHTML)){
-          if(equal == 1){   // after equal button press if num button press then previous string clear 
-            string = '';
-            equal = 0;
-          }
-          string += event.target.innerHTML;
-          display2.value = display.value = symbol_changer(string); 
-        }
-        // console.log(event.target.innerHTML);
-      });
-    });
 
 
-const symbol_changer = (string) => { // Symbols change to : × ÷
-  let a = string, b=''; 
-  for(i=0;i<a.length;i++){
-    if(a[i] == '*')
-      b += '×';
-    else if(a[i] == '/')
-      b += '÷';
-    else
-      b += a[i];
-  }
-  return b;
-}
-
-const oper_checker = (oper) => { // check if operator or not
-  let i = oper;
-  if(i=='+'||i=='-'||i=='%'||i=='*'||i=='/'||i=='.')
-    return true;
-  else 
-    return false;
-}
-const multiple_oper_checker = (string) => { // if side by side multiple operator present : +++ , -+ then remove it
-  let a = string, i;
-  let b = string;
-  for(i=0;i<a.length;i++){
-    if(oper_checker(a[i]) && oper_checker(a[i+1])){  // if operator present in i and i+1 position then remove operator from i+1 position 
-        b = b.substring(0, b.length-1);
-        return b;
-    }
-  }
-  return b; // if not present multiple poer return original string 
-}
-
-const add_0_before_1st_oper = (string) =>{ // +98-5 => 0+98-5, ×5 => 0×5
-  let a = string, b = '0',i = 0;
-  if(oper_checker(a[0])){  // if operator present in first position then add 0 before the operator 
-    for(i;i<a.length;i++){
-      b += a[i]
-    }
-    return b;
-  }
-  else
-    return a;
-}
-
-const num_checker = (num) => { 
-  let i = num;
-  if(i=='00'||i=='0'||i=='1'||i=='2'||i=='3'||i=='4'||i=='5'||i=='6'||i=='7'||i=='8'||i=='9')
-    return true;
-  else 
-    return false;
-}
-
-
-
-
-  //   document.addEventListener('DOMContentLoaded',(event) => {
-  //   let string = "";
-  //   let buttons = document.querySelectorAll('.button');
-  //   Array.from(buttons).forEach((button) => {
-  //     button.addEventListener('click', (e) => {
-  //       console.log(e.target) 
-  //     })
-  //   })
-  // })
-  //   console.log("hello")
-
-
-
-
-  
-  </script>
+  <script src="calculator-01.js"> </script>
 
 </body>
 
 </html>
 
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-  /*  background: url('Calculator 01.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center; */
-
-
-
-
-   /* backdrop-filter: blur(8px);
-        background: linear-gradient(90deg,#96969646 
-        ,#00000000, #00000000, #00000000, #00000000, #00000000, #00000000, #00000000, #00000000, #00000000, #00000000, #00000000, #96969646); */
-
-
-
--->
