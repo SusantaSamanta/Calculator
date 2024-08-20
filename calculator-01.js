@@ -9,6 +9,12 @@ let buttonsArray = Array.from(buttons);
 
 buttonsArray.forEach((btn) => {
   btn.addEventListener('click', (event) => {
+
+    window.scrollTo({     // If any button click smoothly scroll to end part of the page.
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+
     if (event.target.innerHTML == "DE") {
       string = string.substring(0, string.length - 1);
       display2.value = display.value = symbol_changer(string);
@@ -175,25 +181,49 @@ const num_checker = (num) => {
 // insert content into result container to save history 
 
 const result_container = document.getElementById('result_container');
+let container = document.getElementById('container');
+let top_value_increment = 38;  // intialy container position 36vw fron top 
+let top_value = 0;
 
+let result_histry_fun_count = 0;
 
 const result_histry = (result) => {
   let result_div = document.createElement('div');
   result_div.id = 'input_size2';
   result_div.className = 'input_size2';
   result_div.textContent = result;
-  result_container.appendChild(result_div);
-  window.scrollTo({
+  result_container.appendChild(result_div); // append result_div height 4vh 
+
+  result_histry_fun_count++;
+  if (result_histry_fun_count > 4) {           // after 4 append of result_div then container move
+    top_value_increment = top_value_increment + 9;
+    top_value = top_value_increment;
+    container.style.top = top_value + 'vh';
+    console.log("hello ")        // after append  result_div, container move 38+9vh... from top     
+  }
+  console.log(result_histry_fun_count)
+
+  window.scrollTo({       // after result_div append and container move from top page will auto scroll to end
     top: document.body.scrollHeight
   });
 }
+
+
+let equation_histry_fun_count = 0;
 
 const equation_histry = (equation) => {
   let equation_div = document.createElement('div');
   equation_div.id = 'input_size2';
   equation_div.textContent = symbol_changer(equation);
   result_container.appendChild(equation_div);
-  window.scrollTo({
+
+  equation_histry_fun_count++;
+  if (equation_histry_fun_count == 5) {           // after 4 append of result_div then container move
+    result_container.style.top = '2vh';          // after append  result_div, container move only 2vh from top. then it extend to bottom   
+  }
+
+
+  window.scrollTo({       // scroll to end 
     top: document.body.scrollHeight
   });
 }
@@ -205,10 +235,10 @@ window.onload = function () {
 
 
 
-/*window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth'
-  });*/
+// window.scrollTo({
+//     top: document.body.scrollHeight,
+//     behavior: 'smooth'
+//   });
 
 
 
