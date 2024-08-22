@@ -1,4 +1,4 @@
-let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0;
+let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0;
 let display = document.getElementById('input');
 let display2 = document.getElementById('input2');
 
@@ -15,15 +15,20 @@ buttonsArray.forEach((btn) => {
       behavior: 'smooth'
     });
 
-    if (event.target.innerHTML == "DE") {
+    if(event.target.innerHTML == 'AC'){
+      allClear();
+    }
+
+    else if (event.target.innerHTML == "DE") {
       string = string.substring(0, string.length - 1);
       display2.value = display.value = symbol_changer(string);
     }
-    else if (event.target.innerHTML == "=") {
+    else if (event.target.innerHTML == "=" && equal_button_count == 0) {  // eq_bu_co == 0 that means that equal button click first time then eq_bu_co++ and not match. if click any other button the eq_bu_co = 0 and condition match.   *** this condition restricted multiple click of equal button.
       equation = string;
       string = eval(string);
       result = display.value = '= ' + string;
       equal = 1;
+      equal_button_count++;
       after_equal_action = 1;
     }
     else if (event.target.innerHTML == "+") {
@@ -32,6 +37,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
@@ -44,6 +50,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
@@ -56,6 +63,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
@@ -68,6 +76,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
@@ -80,6 +89,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
@@ -93,6 +103,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
@@ -105,6 +116,7 @@ buttonsArray.forEach((btn) => {
         string = '';
         equal = 0;
       }
+      equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
@@ -198,10 +210,9 @@ const result_histry = (result) => {
   if (result_histry_fun_count > 4) {           // after 4 append of result_div then container move
     top_value_increment = top_value_increment + 9;
     top_value = top_value_increment;
-    container.style.top = top_value + 'vh';
-    console.log("hello ")        // after append  result_div, container move 38+9vh... from top     
+    container.style.top = top_value + 'vh';       // after append  result_div, container move 38+9vh... from top     
   }
-  console.log(result_histry_fun_count)
+
 
   window.scrollTo({       // after result_div append and container move from top page will auto scroll to end
     top: document.body.scrollHeight
@@ -219,7 +230,7 @@ const equation_histry = (equation) => {
 
   equation_histry_fun_count++;
   if (equation_histry_fun_count == 5) {           // after 4 append of result_div then container move
-    result_container.style.top = '2vh';          // after append  result_div, container move only 2vh from top. then it extend to bottom   
+    result_container.style.top = '2vh';          // after append  result_div move only 2vh from top. then it extend to bottom   
   }
 
 
@@ -227,6 +238,27 @@ const equation_histry = (equation) => {
     top: document.body.scrollHeight
   });
 }
+
+
+
+
+const allClear = () => {
+  location.reload();    // it can reload the page
+  
+  // result_container.innerHTML = null;
+  // container.style.top = '36vh';
+  // result_container.style.bottom = '64vh';
+  // result_container.style.height = 'auto';
+  // top_value_increment = 38;
+  // equation_histry_fun_count = 0;
+  // result_histry_fun_count = 0;
+  // console.log(result_histry_fun_count)
+}
+
+
+
+
+
 
 
 window.onload = function () {
@@ -254,6 +286,5 @@ window.onload = function () {
 //   })
 // })
 //   console.log("hello")
-
 
 
