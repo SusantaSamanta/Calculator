@@ -40,6 +40,7 @@
       background: #8d8d8d00;
       color: #939393;
       font-size: 6vw;
+      overflow-y: scroll;
       text-align: right;
     }
 
@@ -179,7 +180,17 @@
 
 
 
-  <script src="calculator-01.js"> </script>
+ <script> 
+    let n = 4;
+    let arr = new Int32Array([null,null,null,null]);
+    function shiftValues2(num) {
+      for(i=n-1; i>0; i--)
+        arr[i] = arr[i-1]
+    
+        arr[0] = num;
+    }
+  
+ </script>
 
 </body>
 
