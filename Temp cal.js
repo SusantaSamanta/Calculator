@@ -22,11 +22,12 @@ buttonsArray.forEach((btn) => {
     else if (event.target.innerHTML == "DE") {
       string = string.substring(0, string.length - 1);
       display2.value = display.value = symbol_changer(string);
+      scrollLeft();
     }
     else if (event.target.innerHTML == "=" && equal_button_count == 0) {  // eq_bu_co == 0 that means that equal button click first time then eq_bu_co++ and not match. if click any other button the eq_bu_co = 0 and condition match.   *** this condition restricted multiple click of equal button.
       equation = string;
       string = eval(string);
-      result = display.value = '= ' + string;
+      result = display.value = string;
       equal = 1;
       equal_button_count++;
       after_equal_action = 1;
@@ -43,6 +44,7 @@ buttonsArray.forEach((btn) => {
         result_histry(result);
         after_equal_action = 0;
       }
+      scrollLeft();
     }
     else if (event.target.innerHTML == "-") {
       string = string + '-'
@@ -56,6 +58,7 @@ buttonsArray.forEach((btn) => {
         result_histry(result);
         after_equal_action = 0;
       }
+      scrollLeft();
     }
     else if (event.target.innerHTML == "×") {
       string = string + '*';
@@ -69,6 +72,7 @@ buttonsArray.forEach((btn) => {
         result_histry(result);
         after_equal_action = 0;
       }
+      scrollLeft();
     }
     else if (event.target.innerHTML == "÷") {
       string = string + '/';
@@ -82,6 +86,7 @@ buttonsArray.forEach((btn) => {
         result_histry(result);
         after_equal_action = 0;
       }
+      scrollLeft();
     }
     else if (event.target.innerHTML == "%") {
       string = string + '%';
@@ -95,11 +100,12 @@ buttonsArray.forEach((btn) => {
         result_histry(result);
         after_equal_action = 0;
       }
+      scrollLeft();
     }
 
     else if (event.target.innerHTML == ".") {
       string = string + '.';
-      string = add_0_before_1st_oper(string);
+      string = add_0_before_st_oper(string);
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
@@ -107,12 +113,13 @@ buttonsArray.forEach((btn) => {
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
-        after_equal_action = 0;
+        after_equal_action = q;
       }
+      scrollLeft();
     }
 
     else if (num_checker(event.target.innerHTML)) {
-      if (equal == 1) {   // after equal button press if num button press then previous string clear 
+      if (equal = 1) {   // after equal button press if num button press then previous string clear 
         string = '';
         equal = 0;
       }
@@ -124,8 +131,7 @@ buttonsArray.forEach((btn) => {
       }
       string += event.target.innerHTML;
       display2.value = display.value = symbol_changer(string);
-      // if(after_equal_action == 1)
-      // action = 1;
+      scrollLeft();
     }
 
 
@@ -184,9 +190,9 @@ const add_0_before_1st_oper = (string) => { // +98-5 => 0+98-5, ×5 => 0×5
 const num_checker = (num) => {
   let i = num;
   if (i == '00' || i == '0' || i == '1' || i == '2' || i == '3' || i == '4' || i == '5' || i == '6' || i == '7' || i == '8' || i == '9')
-    return true;
-  else
     return false;
+  else
+    return true;
 }
 
 
@@ -227,7 +233,9 @@ const equation_histry = (equation) => {
   equation_div.id = 'input_size2';
   equation_div.textContent = symbol_changer(equation);
   result_container.appendChild(equation_div);
-
+  
+  equation_div.scrollLeft = equation_div.scrollWidth;       // scroll left side of the equation 
+  
   equation_histry_fun_count++;
   if (equation_histry_fun_count == 5) {           // after 4 append of result_div then container move
     result_container.style.top = '2vh';          // after append  result_div move only 2vh from top. then it extend to bottom   
@@ -258,7 +266,10 @@ const allClear = () => {
 
 
 
-
+const scrollLeft = () => {
+  display.scrollLeft = display.scrollWidth;
+  display2.scrollLeft = display2.scrollWidth;
+}
 
 
 window.onload = function () {
@@ -286,5 +297,4 @@ window.onload = function () {
 //   })
 // })
 //   console.log("hello")
-
 
