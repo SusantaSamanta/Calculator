@@ -21,14 +21,16 @@ buttonsArray.forEach((btn) => {
 
     else if (event.target.innerHTML == "DE") {
       string = string.substring(0, string.length - 1);
+      input_size_adjust(equal, string);
       display2.value = display.value = symbol_changer(string);
       scrollLeft();
     }
     else if (event.target.innerHTML == "=" && equal_button_count == 0) {  // eq_bu_co == 0 that means that equal button click first time then eq_bu_co++ and not match. if click any other button the eq_bu_co = 0 and condition match.   *** this condition restricted multiple click of equal button.
       equation = string;
       string = eval(string);
-      result = display.value = string;
+      result = display.value = '= ' + string;
       equal = 1;
+      input_size_adjust(equal, result);
       equal_button_count++;
       after_equal_action = 1;
     }
@@ -38,6 +40,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      input_size_adjust(equal, string);
       equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
@@ -52,6 +55,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      input_size_adjust(equal, string);
       equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
@@ -66,6 +70,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      input_size_adjust(equal, string);
       equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
@@ -80,6 +85,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      input_size_adjust(equal, string);
       equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
@@ -94,6 +100,7 @@ buttonsArray.forEach((btn) => {
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      input_size_adjust(equal, string);
       equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
@@ -105,21 +112,22 @@ buttonsArray.forEach((btn) => {
 
     else if (event.target.innerHTML == ".") {
       string = string + '.';
-      string = add_0_before_st_oper(string);
+      string = add_0_before_1st_oper(string);
       string = multiple_oper_checker(string);
       display2.value = display.value = symbol_changer(string);
       equal = 0;
+      input_size_adjust(equal, string);
       equal_button_count = 0;
       if (after_equal_action == 1) {
         equation_histry(equation);
         result_histry(result);
-        after_equal_action = q;
+        after_equal_action = 0;
       }
       scrollLeft();
     }
 
     else if (num_checker(event.target.innerHTML)) {
-      if (equal = 1) {   // after equal button press if num button press then previous string clear 
+      if (equal == 1) {   // after equal button press if num button press then previous string clear 
         string = '';
         equal = 0;
       }
@@ -130,6 +138,7 @@ buttonsArray.forEach((btn) => {
         after_equal_action = 0;
       }
       string += event.target.innerHTML;
+      input_size_adjust(equal, string);
       display2.value = display.value = symbol_changer(string);
       scrollLeft();
     }
@@ -252,17 +261,24 @@ const equation_histry = (equation) => {
 
 const allClear = () => {
   location.reload();    // it can reload the page
-  
-  // result_container.innerHTML = null;
-  // container.style.top = '36vh';
-  // result_container.style.bottom = '64vh';
-  // result_container.style.height = 'auto';
-  // top_value_increment = 38;
-  // equation_histry_fun_count = 0;
-  // result_histry_fun_count = 0;
-  // console.log(result_histry_fun_count)
 }
 
+
+const input_size_adjust = (equal, string) => {
+  if(equal == 0 && string.length > 13){
+    input.style.fontSize = '8vw';
+  }
+  else if(equal == 0 && string.length < 13){
+    input.style.fontSize = '12vw';
+  }
+  else if(equal == 1 && string.length > 13){
+    input.style.fontSize = '8vw';
+  }
+  else if(equal == 1 && string.length < 13){
+    input.style.fontSize = '12vw';
+  }
+}
+//console.log()
 
 
 
