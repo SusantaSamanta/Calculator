@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic HTML Components</title>
+    <style>
+    * {
+      border: 0px;
+      margin: 0px;
+      box-sizing: border-box;
+      font-size: 7vw;
+      font-weight: 400;
+    }
+
+    body {
+      height: auto;
+      overflow: scroll;
+    }
+    
+    #result_container {
+      height: 95vh;
+      width: 90vw;
+      margin-top: 0vh;
+      margin-inline: auto;
+      padding-block: 050vw;
+      padding-inline: 0vw;
+      border: 0px solid #8787876c;
+      border-radius: 3vw;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+    }
+
+    #input_size2 {
+      height: 4vh;
+      width: 100%;
+      margin-top: 0vw;
+      margin-bottom: 1vw;
+      padding-left: 5vw;
+      border: .0px solid #71717184;
+      overflow-y: scroll;
+      white-space: nowrap;
+      color: #939393;
+      font-size: 6vw;
+      text-align: right;
+      position: relative;
+    }
+    
+    #long_input_body{
+      position: relative;
+      height: 4vh;
+      width: 100%;
+      margin-bottom: 1vw;
+      border: .0px solid #71717184;
+    }
+    
+    #long_input_body_hide{
+      height: 100%;
+      width: 100%;
+      position: relative;
+      background: linear-gradient( to right, 
+        white 0%, 
+        #fffffff1 6%, 
+        #feb47b00 20%, 
+        #feb47b00 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    #long_input {
+      height: 100%;
+      width: 100%;
+      padding-left: 10%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow-y: scroll;
+      white-space: nowrap;
+      color: #0c0c0c;
+      font-size: 6vw;
+      text-align: right;
+    }
+    
+    
+    
+    </style>
+</head>
+<body>
+    <div id="result_container">
+      
+    </div>
+    
+   <script>
+     
+      const result_container = document.getElementById('result_container');
+
+      const result_histry = (result) => {
+        let result_div =document.createElement('div');
+        result_div.id = 'input_size2';
+        result_div.textContent = result;
+        result_container.appendChild(result_div);
+        //container.prepend(itemDiv);
+      }
+      const equation_histry = (equation) => {
+        if(equation.length > 26){
+          
+          let long_equation_div_body = document.createElement('div');
+          long_equation_div_body.id = 'long_input_body';
+          let long_equation_div_hide = document.createElement('div');
+          long_equation_div_hide.id = 'long_input_body_hide';
+          let long_equation_div = document.createElement('div');
+          long_equation_div.id = "long_input"
+          long_equation_div.textContent = equation;
+          long_equation_div_body.appendChild(long_equation_div_hide);
+          long_equation_div_body.appendChild(long_equation_div);
+          result_container.appendChild(long_equation_div_body);
+          long_equation_div.scrollLeft = long_equation_div.scrollWidth;  
+          console.log(equation)
+        }
+        else{
+          let equation_div =document.createElement('div');
+          equation_div.id = 'input_size2';
+          equation_div.textContent = equation;
+          result_container.appendChild(equation_div);
+        }
+        
+      }
+        
+      equation_histry('3+76-8');
+      result_histry('= 71');
+      equation_histry('3+76-8-456-678');
+      result_histry('= 71');
+      equation_histry('12345-2+89-889777+8887777-888666-88876645');
+      result_histry('= 8882');
+      equation_histry('7-6');
+      result_histry('= 1');
+      equation_histry('12345-2+89--888666-88876645');
+      result_histry('= 9993');
+      equation_histry('8+12');
+      result_histry('= 20');
+        
+    </script> 
+</body>
+</html>
