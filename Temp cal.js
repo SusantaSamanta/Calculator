@@ -1,4 +1,4 @@
-let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0;
+let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0, max_num_input = 0;
 let display = document.getElementById('input');
 let display2 = document.getElementById('input2');
 
@@ -16,7 +16,7 @@ buttonsArray.forEach((btn) => {
     });
 
     if(event.target.innerHTML == 'AC'){
-      allClear();
+      location.reload();    // it can reload the page
     }
 
     else if (event.target.innerHTML == "DE") {
@@ -138,6 +138,7 @@ buttonsArray.forEach((btn) => {
         after_equal_action = 0;
       }
       string += event.target.innerHTML;
+      string = max_num_input_checker(string);
       input_size_adjust(equal, string);
       display2.value = display.value = symbol_changer(string);
       scrollLeft();
@@ -209,30 +210,6 @@ const num_checker = (num) => {
 
 const result_container = document.getElementById('result_container');
 let container = document.getElementById('container');
-let top_value_increment = 38;  // intialy container position 36vw fron top 
-let top_value = 0;
-
-let result_histry_fun_count = 0;
-
-const result_histry = (result) => {
-  let result_div = document.createElement('div');
-  result_div.id = 'input_size2';
-  result_div.className = 'input_size2';
-  result_div.textContent = result;
-  result_container.appendChild(result_div); // append result_div height 4vh 
-
-  result_histry_fun_count++;
-  if (result_histry_fun_count > 4) {           // after 4 append of result_div then container move
-    top_value_increment = top_value_increment + 9;
-    top_value = top_value_increment;
-    container.style.top = top_value + 'vh';       // after append  result_div, container move 38+9vh... from top     
-  }
-
-
-  window.scrollTo({       // after result_div append and container move from top page will auto scroll to end
-    top: document.body.scrollHeight
-  });
-}
 
 
 let equation_histry_fun_count = 0;
@@ -257,11 +234,50 @@ const equation_histry = (equation) => {
 }
 
 
+let top_value_increment = 38;  // intialy container position 36vw fron top 
 
+let result_histry_fun_count = 0;
 
-const allClear = () => {
-  location.reload();    // it can reload the page
+const result_histry = (result) => {
+  let result_div = document.createElement('div');
+  result_div.id = 'input_size2';
+  result_div.className = 'input_size2';
+  result_div.textContent = result;
+  result_container.appendChild(result_div); // append result_div height 4vh 
+
+  result_histry_fun_count++;
+  if (result_histry_fun_count > 4) {           // after 4 append of result_div then container move
+    top_value_increment = top_value_increment + 9;
+    let top_value = top_value_increment;
+    container.style.top = top_value + 'vh';       // after append  result_div, container move 38+9vh... from top     
+  }
+
+  window.scrollTo({       // after result_div append and container move from top page will auto scroll to end
+    top: document.body.scrollHeight
+  });
 }
+
+const max_num_input_checker = (string) =>{
+  let b = a = string;
+  for(i=0;i<string.length;i++){
+    if( num_checker(a[i]) && 
+        num_checker(a[i+1]) && 
+        num_checker(a[i+2]) && 
+        num_checker(a[i+3]) && 
+        num_checker(a[i+4]) && 
+        num_checker(a[i+5]) && 
+        num_checker(a[i+6]) && 
+        num_checker(a[i+7]) && 
+        num_checker(a[i+8]) && 
+        num_checker(a[i+9]) ){
+      a = a.substring(0, a.length-1);
+      return a;
+    }
+  }
+  console.log('hello')
+  return b;
+}
+
 
 
 const input_size_adjust = (equal, string) => {
