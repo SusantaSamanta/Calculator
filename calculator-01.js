@@ -1,4 +1,4 @@
-let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0, max_num_input = 0;
+let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0, result_len = 0;
 let display = document.getElementById('input');
 let display2 = document.getElementById('input2');
 
@@ -29,11 +29,14 @@ buttonsArray.forEach((btn) => {
       equation = string;
       string = eval(string);
       result = display.value = '= ' + string;
+      result_len = result.length;
+      console.log(result_len);
       equal = 1;
       input_size_adjust(equal, result);
       equal_button_count++;
       after_equal_action = 1;
     }
+    
     else if (event.target.innerHTML == "+") {
       string = string + '+'
       string = add_0_before_1st_oper(string);
@@ -130,6 +133,7 @@ buttonsArray.forEach((btn) => {
       if (equal == 1) {   // after equal button press if num button press then previous string clear 
         string = '';
         equal = 0;
+        result_len = 0; // afre equal result set  length 0.
       }
       equal_button_count = 0;
       if (after_equal_action == 1) {
@@ -258,8 +262,8 @@ const result_histry = (result) => {
 }
 
 const max_num_input_checker = (string) =>{
-  let b = a = string;
-  for(i=0;i<string.length;i++){
+  let b = a = string, i = result_len-1;       // result_len is the length of the result after equal. 
+  for(i; i<string.length; i++){
     if( num_checker(a[i]) && 
         num_checker(a[i+1]) && 
         num_checker(a[i+2]) && 
@@ -274,7 +278,7 @@ const max_num_input_checker = (string) =>{
       return a;
     }
   }
-  console.log('hello')
+  //console.log('hello')
   return b;
 }
 
