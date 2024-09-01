@@ -1,4 +1,6 @@
 let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0, result_len = 0;
+const viewportHeight = window.innerHeight;
+console.log(viewportHeight)
 let display = document.getElementById('input');
 let display2 = document.getElementById('input2');
 
@@ -214,23 +216,33 @@ const num_checker = (num) => {
 
 const result_container = document.getElementById('result_container');
 let container = document.getElementById('container');
-
+const clientHeight = container.clientHeight;
+console.log(clientHeight)
 
 let equation_histry_fun_count = 0;
-
+let i = 0;
 const equation_histry = (equation) => {
-  let equation_div = document.createElement('div');
-  equation_div.id = 'input_size2';
-  equation_div.textContent = symbol_changer(equation);
-  result_container.appendChild(equation_div);
-  
-  equation_div.scrollLeft = equation_div.scrollWidth;       // scroll left side of the equation 
-  
   equation_histry_fun_count++;
-  if (equation_histry_fun_count == 5) {           // after 4 append of result_div then container move
-    result_container.style.top = '2vh';          // after append  result_div move only 2vh from top. then it extend to bottom   
+  if(equation.length > 16){
+    i++;
+    let long_equation_div = document.createElement('div');
+    long_equation_div.className = `long_size`;
+    long_equation_div.id = `long_size${i}`;
+    long_equation_div.textContent = symbol_changer(equation);
+    result_container.appendChild(long_equation_div);
   }
+  else{
+    let equation_div = document.createElement('div');
+    equation_div.id = 'input_size2';
+    equation_div.textContent = symbol_changer(equation);
+    result_container.appendChild(equation_div);
+    equation_div.scrollLeft = equation_div.scrollWidth;       // scroll left side of the equation 
+  
+    if (equation_histry_fun_count == 5) {           // after 4 append of result_div then container move
+     result_container.style.top = '2vh';          // after append  result_div move only 2vh from top. then it extend to bottom   
+    }
 
+  }
 
   window.scrollTo({       // scroll to end 
     top: document.body.scrollHeight
@@ -323,14 +335,4 @@ window.onload = function () {
 
 
 
-//   document.addEventListener('DOMContentLoaded',(event) => {
-//   let string = "";
-//   let buttons = document.querySelectorAll('.button');
-//   Array.from(buttons).forEach((button) => {
-//     button.addEventListener('click', (e) => {
-//       console.log(e.target)
-//     })
-//   })
-// })
-//   console.log("hello")
-
+//  (div-height / viewportHeight) * 100 = vh
