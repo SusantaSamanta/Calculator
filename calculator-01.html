@@ -19,7 +19,7 @@
     }
 
     #result_container {
-      height: auto;
+      height: auto;        /* 268.2px or 36vh */
       width: 90vw;
       margin: 0px;
       margin-inline: auto;
@@ -36,13 +36,24 @@
     #input_size2 {
       height: 4vh;
       width: 100%;
-      border: .0px solid #71717184;
+      border: 0px solid #71717184;
       background: #8d8d8d00;
       color: #939393;
       font-size: 6vw;
       text-align: right;
       overflow-y: scroll;
       white-space: nowrap;
+    }
+    .long_size {
+      height: auto;
+      width: 100%;
+      border: 0px solid #71717184;
+      background: #8d8d8d00;
+      color: #939393;
+      font-size: 6vw;
+      text-align: right;
+      overflow-y: scroll;
+      white-space: wrap;
     }
 
     .input_size2 {
@@ -60,7 +71,7 @@
       flex-wrap: wrap;
       position: absolute;
       left: 5%;
-      bottom: 0px;
+      top: 36vh;
     }
 
     .input_size {
@@ -176,10 +187,12 @@
   </div>
 
 
-  <script> 
-  
-  
-  </script>
+
+
+
+
+
+  <script src="calculator-01.js"> </script>
 
 </body>
 
