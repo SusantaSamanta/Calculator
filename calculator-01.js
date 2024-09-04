@@ -1,6 +1,6 @@
 let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0, result_len = 0;
 const viewportHeight = window.innerHeight;
-console.log(viewportHeight)
+
 let display = document.getElementById('input');
 let display2 = document.getElementById('input2');
 
@@ -222,7 +222,7 @@ console.log(clientHeight)
 let top_value_increment = 36;  // intialy container position 36vw fron top 
 let max_length_test = 0;
 let equation_histry_fun_count = 0;
-
+let only_1st = 0;
 const equation_histry = (equation) => {
   equation_histry_fun_count++;
   if(equation.length > 26){
@@ -234,15 +234,21 @@ const equation_histry = (equation) => {
     result_container.appendChild(long_equation_div);
     
     let long = (long_equation_div.clientHeight / viewportHeight) * 100;
-    console.log('long = '+long)
+    
     max_length_test = max_length_test+long+5;
-    console.log(max_length_test+'max')
+   
     if(max_length_test > 36){
       result_container.style.top = '1vh';
-      top_value_increment = top_value_increment+5+long;
-      let top_value = top_value_increment;
-      container.style.top = top_value + 'vh';       // after append  result_div, container move 38+9vh... from top     
-      console.log(top_value+'ok')
+      only_1st++;
+      if(only_1st==1){
+        let long2 = max_length_test - 36;
+        top_value_increment = top_value_increment+long2;
+      }
+      else{
+        top_value_increment = top_value_increment+5+long;
+      }
+        let top_value = top_value_increment;
+        container.style.top = top_value + 'vh'; 
     }
     
   }
@@ -256,17 +262,16 @@ const equation_histry = (equation) => {
     console.log(max_length_test+'max')
     if(max_length_test > 36){
       result_container.style.top = '1vh';
+      only_1st++;
+      
       top_value_increment = top_value_increment+5+4;
       let top_value = top_value_increment;
-      container.style.top = top_value + 'vh';    
+      container.style.top = top_value + 'vh';  
+      
     }
   
   
   
-   
-  // if (equation_histry_fun_count == 5) {           // after 4 append of result_div then container move
-//     result_container.style.top = '2vh';          // after append  result_div move only 2vh from top. then it extend to bottom   
-//    }
 
   }
 
@@ -287,12 +292,7 @@ const result_histry = (result) => {
   result_div.textContent = result;
   result_container.appendChild(result_div); // append result_div height 4vh 
 
-  result_histry_fun_count++;
-  if (result_histry_fun_count > 4) {           // after 4 append of result_div then container move
-   // top_value_increment = top_value_increment + 9;
-   // let top_value = top_value_increment;
-   // container.style.top = top_value + 'vh';       // after append  result_div, container move 38+9vh... from top     
-  }
+  
 
   window.scrollTo({       // after result_div append and container move from top page will auto scroll to end
     top: document.body.scrollHeight
