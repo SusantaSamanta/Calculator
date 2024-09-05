@@ -233,7 +233,7 @@ const equation_histry = (equation) => {
     long_equation_div.textContent = symbol_changer(equation);
     result_container.appendChild(long_equation_div);
     
-    let long = (long_equation_div.clientHeight / viewportHeight) * 100;
+    let long = (long_equation_div.clientHeight / viewportHeight) * 100;      // long_equation_div height in vh 
     
     max_length_test = max_length_test+long+5;
    
@@ -241,7 +241,7 @@ const equation_histry = (equation) => {
       result_container.style.top = '1vh';
       only_1st++;
       if(only_1st==1){
-        let long2 = max_length_test - 36;
+        let long2 = max_length_test - 36;   
         top_value_increment = top_value_increment+long2;
       }
       else{
@@ -258,21 +258,20 @@ const equation_histry = (equation) => {
     equation_div.textContent = symbol_changer(equation);
     result_container.appendChild(equation_div);
     equation_div.scrollLeft = equation_div.scrollWidth;       // scroll left side of the equation 
-    max_length_test = max_length_test+5+4;
+    max_length_test = max_length_test+5+4;   // result_div+padding + equation_div
     console.log(max_length_test+'max')
     if(max_length_test > 36){
       result_container.style.top = '1vh';
       only_1st++;
-      
-      top_value_increment = top_value_increment+5+4;
-      let top_value = top_value_increment;
-      container.style.top = top_value + 'vh';  
-      
+      if(only_1st== 1){
+        let long2 = max_length_test - 36;
+        top_value_increment = top_value_increment+long2;
+      }else{
+        top_value_increment = top_value_increment+5+4;
+      }
+        let top_value = top_value_increment;
+        container.style.top = top_value + 'vh';  
     }
-  
-  
-  
-
   }
 
   window.scrollTo({       // scroll to end 
@@ -281,7 +280,6 @@ const equation_histry = (equation) => {
 }
 
 
-//let top_value_increment = 38;  // intialy container position 36vw fron top 
 
 let result_histry_fun_count = 0;
 
@@ -292,12 +290,14 @@ const result_histry = (result) => {
   result_div.textContent = result;
   result_container.appendChild(result_div); // append result_div height 4vh 
 
-  
 
   window.scrollTo({       // after result_div append and container move from top page will auto scroll to end
     top: document.body.scrollHeight
   });
 }
+
+
+
 
 const max_num_input_checker = (string) =>{
   let b = a = string, i = result_len-1;       // result_len is the length of the result after equal. 
