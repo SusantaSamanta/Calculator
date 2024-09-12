@@ -12,10 +12,11 @@
       font-size: 7vw;
       font-weight: 400;
     }
-
-    body {
-      height: auto;
+  
+    #body2 {
+      height: 90vh;
       overflow: scroll;
+      border: 0px solid green;
     }
 
     #result_container {
@@ -71,7 +72,7 @@
       flex-wrap: wrap;
       position: absolute;
       left: 5%;
-      top: 36vh;
+      bottom: 0px;
     }
 
     .input_size {
@@ -139,12 +140,19 @@
     .equal_button:active {
       transform: scale(0.88);
     }
+    #bodysize{
+      height: 100vh;
+      width: 100vw;
+      border: 0px solid red;
+    }
   </style>
 </head>
 
 <body>
 
+<div id="body2">
 
+  <div id="bodysize"></div>
   <div id="result_container">
   </div>
 
@@ -185,8 +193,7 @@
     </div>
 
   </div>
-
-
+</div>
 
 
 
