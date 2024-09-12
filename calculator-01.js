@@ -1,5 +1,15 @@
 let string = "", equal = 0, after_equal_action = 0, action = 0, equation = 0, result = 0, equal_button_count = 0, result_len = 0;
-const viewportHeight = window.innerHeight;
+let viewportHeight2 = window.innerHeight;
+console.log(viewportHeight2);
+
+let body2 = document.getElementById('body2')
+//let viewportHeight = body2.clientHeight;
+//console.log(viewportHeight);
+
+let body3 = document.getElementById('bodysize')
+let viewportHeight = body3.clientHeight;
+
+console.log(viewportHeight+" bodysize");
 
 let display = document.getElementById('input');
 let display2 = document.getElementById('input2');
@@ -32,7 +42,7 @@ buttonsArray.forEach((btn) => {
       string = eval(string);
       result = display.value = '= ' + string;
       result_len = result.length;
-      console.log(result_len);
+      //console.log(result_len);
       equal = 1;
       input_size_adjust(equal, result);
       equal_button_count++;
@@ -234,10 +244,12 @@ const equation_histry = (equation) => {
     result_container.appendChild(long_equation_div);
     
     let long = (long_equation_div.clientHeight / viewportHeight) * 100;      // long_equation_div height in vh 
-    
+    console.log(long+' long')
     max_length_test = max_length_test+long+5;
    
     if(max_length_test > 36){
+     // viewportHeight = window.innerHeight;
+      console.log(viewportHeight);
       result_container.style.top = '1vh';
       only_1st++;
       if(only_1st==1){
@@ -248,7 +260,9 @@ const equation_histry = (equation) => {
         top_value_increment = top_value_increment+5+long;
       }
         let top_value = top_value_increment;
-        container.style.top = top_value + 'vh'; 
+        container.style.top = top_value + 'vh';
+        console.log(top_value_increment+'  tvi');
+        console.log(top_value+'tv');
     }
     
   }
@@ -259,7 +273,7 @@ const equation_histry = (equation) => {
     result_container.appendChild(equation_div);
     equation_div.scrollLeft = equation_div.scrollWidth;       // scroll left side of the equation 
     max_length_test = max_length_test+5+4;   // result_div+padding + equation_div
-    console.log(max_length_test+'max')
+    //console.log(max_length_test+'max')
     if(max_length_test > 36){
       result_container.style.top = '1vh';
       only_1st++;
@@ -347,9 +361,9 @@ const scrollLeft = () => {
 
 
 window.onload = function () {
-  window.scrollTo(0, document.body.scrollHeight); // Scroll to the bottom when the page loads
+  window.scrollTo(0, viewportHeight); // Scroll to the bottom when the page loads
 };
-
+console.log(viewportHeight+'  Scroll')
 
 
 // window.scrollTo({
